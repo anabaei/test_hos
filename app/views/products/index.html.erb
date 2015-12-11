@@ -1,10 +1,6 @@
-<style>
- td:first-child
- {
- 	color: #a3a3c2;
- }
-</style>
-<div class="col-md-1">  </div>
+
+
+<div class="col-md-4">  </div>
  <div class="col-md-4">
 <%= form_for Product.new do |f| %>
   
@@ -21,7 +17,7 @@
     <!--  <%= @res %> -->
  
   
-      <table class="table table-bordered  ">
+      <table class="table table-bordered" id="firsttable">
     	 
          <tr>  
          	<th>name   </th>
@@ -55,16 +51,18 @@
           </tr>  
        </table>     
      </div>
-
- <div class="col-md-5">  
-
+<div class="col-md-4">  </div>
+<div class="col-md-12"> <legend></legend> </div>
+<div class="col-md-4">  </div>
+ <div class="col-md-4">  
+  <br>
    <%= form_tag(products_test_path,:method => "get", id: "search-form") do %>
   	       <%= text_field_tag :search, params[:search], placeholder: "Search Items" %>
                     
-              <%= submit_tag "Search", :name => nil %>
+              <%= submit_tag "Find me", class: "btn btn-info" ,:name => nil , id: "submit_search"%>
 	<% end %>
- 
-  <table class="table table-bordered  ">
+  <br>
+  <table class="table  ">
   	 <tr>  
          	<th> SKU   </th>
          	<th>Product Name   </th>
@@ -82,5 +80,24 @@
 
 </div>
 
-<div class="col-md-2">  </div>
+<div class="col-md-4">  </div>
 
+
+<script>
+
+$( document ).ready(function()
+ {
+    //$("#search").focus();
+ });
+
+ $( "#search" ).keyup(function(e) {
+   console.log(e.which)
+    var value = $(this).val();
+    if ( value.length > 4 && e.which != 8 && e.which != 32) 
+         {
+          $( "#submit_search").click();
+        }
+
+ });
+</script>
+ 
