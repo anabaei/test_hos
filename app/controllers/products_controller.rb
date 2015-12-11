@@ -50,11 +50,13 @@ class ProductsController < ApplicationController
   end
   
   def create
-    @product = Product.new(params.require(:product).permit(:sku))
+  #  @product = Product.new(params.require(:product).permit(:sku))
     
-  if @product.save
+  #if @product.save
           
-         @as = Product.last.sku
+        # @as = Product.last.sku
+       if params[:sku]
+       @search = params[:sku] 
    # client = Savon.client(wsdl: "http://www.webservicex.net/uszip.asmx?WSDL")
  ############################# ############################# ############################# ######################################
  ################################  SETIGN UP SAVON CLIENT AND THEN MAKE A REQUEST TO INVOKE ####################################### 
