@@ -4,7 +4,8 @@
  	color: #a3a3c2;
  }
 </style>
-
+<div class="col-md-1">  </div>
+ <div class="col-md-4">
 <%= form_for Product.new do |f| %>
   
   <br>
@@ -18,25 +19,25 @@
     <%= @long_name %>
     <br>
     <!--  <%= @res %> -->
-  <div class="col-md-4"></div>
-   <div class="col-md-4">
-    <table class="table table-bordered  ">
-    	 <tr>
-    	 	  <td>brand   </td>
-              <td><%=   @brand %>  </td>
-         </tr>   
-         <tr>   <td>name   </td>
+ 
+  
+      <table class="table table-bordered  ">
+    	 
+         <tr>  
+         	<th>name   </th>
              <td style="color: #00ff00;"> <%=  @name %> </td>
           </tr>  
+           <tr>
+    	 	  <td>brand   </td>
+              <td><%=   @brand %>  </td>
+         </tr>  
          <tr>  <td> country  code </td>
              <td> <%=  @country  %></td>
           </tr>  
          <tr>  <td>Description   </td>
             <td>  <%=  @description %></td>
           </tr>  
-         <tr>   <td>Size   </td>
-              <td> <%= @size  %></td>
-          </tr>  
+         
          <tr><td>Weight   </td>
               <td> <%= @weight  %> </td>
           </tr>  
@@ -48,6 +49,38 @@
           </tr>  
          <tr>  <td> Manager Code   </td>  
               <td> <%= @manager_code  %> </td>
-          </tr>      
- </div>
-  <div class="col-md-4"></div>
+          </tr> 
+          <tr>   <td>Size   </td>
+              <td> <%= @size  %></td>
+          </tr>  
+       </table>     
+     </div>
+
+ <div class="col-md-5">  
+
+   <%= form_tag(products_test_path,:method => "get", id: "search-form") do %>
+  	       <%= text_field_tag :search, params[:search], placeholder: "Search Items" %>
+                    
+              <%= submit_tag "Search", :name => nil %>
+	<% end %>
+ 
+  <table class="table table-bordered  ">
+  	 <tr>  
+         	<th> SKU   </th>
+         	<th>Product Name   </th>
+     </tr> 
+   <% if @re.nil? %>
+     <% puts"a" %>    	
+    <% else @re.each do |j| %> 
+         <tr>  
+             <td>  <%= j[:sku] %> </td>
+              <td><%= j[:product_name] %> </td>
+         </tr>  
+    <% end %>
+  <% end %>
+</table>
+
+</div>
+
+<div class="col-md-2">  </div>
+

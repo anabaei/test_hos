@@ -10,21 +10,20 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
   <style>
-  * {
+  body {
    font-family: agenda-thin, sans-serif;
     background: #1f1f2e;
     color:   #e1e1ea; 
   }
-  center{
-    margin-top: 8%;
 
-     }
   </style>
 </head>
 <body>
-	<center>
+  <%= notice %>
+  <%= alert %>
+
  		<%= yield %>
-	</center>
+
 </body>
 </html>
 

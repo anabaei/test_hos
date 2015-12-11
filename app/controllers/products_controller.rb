@@ -2,8 +2,48 @@ class ProductsController < ApplicationController
   
    require 'Savon'
   def index
-  	@products = Product.all
+  	#@products = Product.all
+    
   end
+
+  def test
+  	#@products = Product.all
+    if params[:search]
+       @search = params[:search]
+       client = Savon.client(wsdl: "http://services.dev.bcldb.com:25211/ProductService/ProductPort?wsdl") 
+       results = %q(
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://productservice.services.bcldb.com">
+       <soapenv:Header/>
+         <soapenv:Body>
+             <prod:baseProductsByNameRequest>
+             <prod:name>)+@search.to_s+%q(</prod:name>
+              <prod:firstRecord>1</prod:firstRecord>
+               <prod:numberOfRecords>1000</prod:numberOfRecords>
+              <prod:searchLocation>ANY</prod:searchLocation>
+              </prod:baseProductsByNameRequest>
+           </soapenv:Body>
+        </soapenv:Envelope>)
+       response = client.call(:get_base_products_by_name, xml: results)
+       @re =  response.to_array(:base_products_by_name_response, :base_product)
+       
+
+
+       render "products/index" 
+
+
+
+      #render products_test_path ,:flash =>{ :success => "its was" } #@items = Item.search(params[:search]).order("created_at DESC")
+     # @names= params[:search]
+
+
+
+      else
+            #@items = Item.all.order('created_at DESC')
+    end
+  end
+
+
+
 
   def new
    
@@ -11,8 +51,9 @@ class ProductsController < ApplicationController
   
   def create
     @product = Product.new(params.require(:product).permit(:sku))
+    
   if @product.save
-
+          
          @as = Product.last.sku
    # client = Savon.client(wsdl: "http://www.webservicex.net/uszip.asmx?WSDL")
  ############################# ############################# ############################# ######################################
