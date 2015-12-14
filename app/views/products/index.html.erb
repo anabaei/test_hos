@@ -57,22 +57,24 @@
  <div class="col-md-4">  
   <br>
    <%= form_tag(products_test_path,:method => "get", id: "search-form") do %>
-  	       <%= text_field_tag :search, params[:search], placeholder: "Search Items" %>
+  	       <%= text_field_tag :search, params[:search], placeholder: "name" %>
                     
               <%= submit_tag "Find me", class: "btn btn-info" ,:name => nil , id: "submit_search"%>
 	<% end %>
   <br>
   <table class="table  ">
   	 <tr>  
-         	<th> SKU   </th>
+         
          	<th>Product Name   </th>
+            <th> SKU   </th>
      </tr> 
    <% if @re.nil? %>
      <% puts"a" %>    	
     <% else @re.each do |j| %> 
          <tr>  
-             <td>  <%= j[:sku] %> </td>
+             
               <td><%= j[:product_name] %> </td>
+              <td>   <%= j[:sku] %> </td>
          </tr>  
     <% end %>
   <% end %>
@@ -80,7 +82,8 @@
 
 </div>
 
-<div class="col-md-4">  </div>
+
+<div class="col-md-4"> <div id="here">ddddd</div> </div>
 
 
 <script>
@@ -90,14 +93,26 @@ $( document ).ready(function()
     //$("#search").focus();
  });
 
- $( "#search" ).keyup(function(e) {
+
+ $("#search").keyup(function(e) 
+ {
    console.log(e.which)
     var value = $(this).val();
     if ( value.length > 4 && e.which != 8 && e.which != 32) 
          {
           $( "#submit_search").click();
         }
-
  });
 </script>
  
+
+
+
+ <%= form_tag(products_ajaxcall_path, id: "searchajax", remote: true )do %>
+           <%= text_field_tag :search, params[:search], placeholder: "name" %>
+                    
+              <%= submit_tag "Find me", class: "btn btn-info" ,:name => nil , id: "submi"%>
+  <% end %>
+
+ 
+

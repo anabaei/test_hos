@@ -2,12 +2,12 @@ class ProductsController < ApplicationController
   
    require 'Savon'
   def index
-  	#@products = Product.all
+    #@products = Product.all
     
   end
 
   def test
-  	#@products = Product.all
+    #@products = Product.all
     if params[:search]
        @search = params[:search]
        client = Savon.client(wsdl: "http://services.dev.bcldb.com:25211/ProductService/ProductPort?wsdl") 
@@ -42,6 +42,38 @@ class ProductsController < ApplicationController
     end
   end
 
+  def ajaxcall
+    #@products = Product.all
+    if params[:search]
+       @search = params[:search]
+       client = Savon.client(wsdl: "http://services.dev.bcldb.com:25211/ProductService/ProductPort?wsdl") 
+       results = %q(
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://productservice.services.bcldb.com">
+       <soapenv:Header/>
+         <soapenv:Body>
+             <prod:baseProductsByNameRequest>
+             <prod:name>)+@search.to_s+%q(</prod:name>
+              <prod:firstRecord>1</prod:firstRecord>
+               <prod:numberOfRecords>1000</prod:numberOfRecords>
+              <prod:searchLocation>ANY</prod:searchLocation>
+              </prod:baseProductsByNameRequest>
+           </soapenv:Body>
+        </soapenv:Envelope>)
+       response = client.call(:get_base_products_by_name, xml: results)
+      @re =  response.to_array(:base_products_by_name_response)
+      
+      respond_to do |format|
+      #    #format.html {render "products/index" }
+      format.js { render  :action => 'ajaxcall.js.erb', lcoals: { re: @re } }
+      end
+   
+       #render "products/index" 
+
+       else
+         
+     end
+  end
+   
 
 
 
@@ -50,13 +82,11 @@ class ProductsController < ApplicationController
   end
   
   def create
-  #  @product = Product.new(params.require(:product).permit(:sku))
+    @product = Product.new(params.require(:product).permit(:sku))
     
-  #if @product.save
+  if @product.save
           
-        # @as = Product.last.sku
-       if params[:sku]
-       @search = params[:sku] 
+         @as = Product.last.sku
    # client = Savon.client(wsdl: "http://www.webservicex.net/uszip.asmx?WSDL")
  ############################# ############################# ############################# ######################################
  ################################  SETIGN UP SAVON CLIENT AND THEN MAKE A REQUEST TO INVOKE ####################################### 

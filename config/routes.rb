@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'products/test' => 'products#test'
+  post 'products/ajaxcall' => 'products#ajaxcall'
 
   resources :products
   root 'products#index'
