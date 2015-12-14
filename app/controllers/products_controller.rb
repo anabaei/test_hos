@@ -60,11 +60,11 @@ class ProductsController < ApplicationController
            </soapenv:Body>
         </soapenv:Envelope>)
        response = client.call(:get_base_products_by_name, xml: results)
-      @re =  response.to_array(:base_products_by_name_response,:base_product)
-      
+       @re =  response.to_array(:base_products_by_name_response,:base_product)
+       @zz = "QWQW"
       respond_to do |format|
       #    #format.html {render "products/index" }
-      format.js { render  :action => 'ajaxcall.js.erb', lcoals: { re: @re } }
+      format.js { render  :action => 'ajaxcall.js.erb', lcoals: { re: @re , amir: @zz} }
       end
    
        #render "products/index" 

@@ -5,7 +5,7 @@
 //$('#here').html("<%=  render :text => @re.inspect %>");
 $('#here').html("<table>"
   	 + "<tr>  "
-      + "   	<th>Product Name   </th>"
+      + "   	<th>Product Name <%= j render :text =>@zz.to_s %>  </th>"
       + "      <th> SKU   </th> "
     + " </tr> "
   + "  <% if @re.nil? %> "
