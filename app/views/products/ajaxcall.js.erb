@@ -1,7 +1,22 @@
 
 
-$('#submi').hide();
+//$('#submi').hide();
+//$('#here').html("<%= j render :text => @re.inspect %>");
+//$('#here').html("<%=  render :text => @re.inspect %>");
+$('#here').html("<table>"
+  	 + "<tr>  "
+      + "   	<th>Product Name   </th>"
+      + "      <th> SKU   </th> "
+    + " </tr> "
+  + "  <% if @re.nil? %> "
+  + "  " 	
+  + "  <% else @re.each do |j| %> " 
+   + "      <tr>          "   
+     + "         <td><%= j[:product_name] %> </td> "
+   + "           <td>   <%= j[:sku] %> </td> "
+    + "     </tr>  "
+  + "  <% end %>"
+    + "  <% end %>"
++ " </table>");
 
 
-$('#here').text("= j render(@re) 	 <%= j render :text => @re.inspect %>");
-console.log("QQQQQQQQQ");

@@ -60,7 +60,7 @@ class ProductsController < ApplicationController
            </soapenv:Body>
         </soapenv:Envelope>)
        response = client.call(:get_base_products_by_name, xml: results)
-      @re =  response.to_array(:base_products_by_name_response)
+      @re =  response.to_array(:base_products_by_name_response,:base_product)
       
       respond_to do |format|
       #    #format.html {render "products/index" }
